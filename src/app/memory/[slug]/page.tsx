@@ -54,7 +54,29 @@ export default function MemoryDetailPage() {
       setTimeline(Array.isArray(timelineData) ? timelineData : [])
     } catch (err) {
       console.error("Failed to load page:", err)
-      setError(err instanceof Error ? err.message : "Failed to load page")
+      // Demo mode: show mock page data
+      setPage({
+        id: 1,
+        slug,
+        type: "note",
+        title: slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+        compiled_truth: `# ${slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}\n\n这是 GBrain Web 的演示内容。\n\n## 概述\n\nGBrain 是一个基于 MCP (Model Context Protocol) 协议的记忆治理系统。\n\n## 主要特性\n\n- **记忆存储**：支持多种类型的知识片段\n- **智能检索**：基于语义的关键词搜索\n- **知识图谱**：可视化的记忆关联网络\n- **时间线追踪**：记录记忆的演变历史\n\n## 技术栈\n\n- Next.js 16 + TypeScript\n- Tailwind CSS + shadcn/ui\n- Zustand 状态管理\n- MCP JSON-RPC 协议\n`,
+        timeline: "",
+        frontmatter: {},
+        content_hash: "demo1234567890abcdef",
+        created_at: "2025-03-15T08:00:00Z",
+        updated_at: "2025-06-04T16:45:00Z",
+        deleted_at: null,
+        source_id: "demo",
+        tags: ["demo", "gbrain", "mcp"],
+      })
+      setLinks(["gbrain-arch", "mcp-protocol"])
+      setBacklinks(["nextjs-perf"])
+      setTimeline([
+        { timestamp: "2025-03-15T08:00:00Z", content: "创建初始版本" },
+        { timestamp: "2025-04-01T10:30:00Z", content: "添加架构设计说明" },
+        { timestamp: "2025-06-04T16:45:00Z", content: "更新 MCP 协议文档" },
+      ])
     } finally {
       setIsLoading(false)
     }

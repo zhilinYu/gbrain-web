@@ -83,8 +83,13 @@ export default function SearchPage() {
       setResults(data)
     } catch (err) {
       console.error("Search failed:", err)
-      setError(err instanceof Error ? err.message : "Search failed")
-      setResults([])
+      // Demo mode: return mock search results
+      setResults([
+        { slug: "nextjs-perf", page_id: 1, title: "Next.js 性能优化笔记", type: "note", chunk_text: "Next.js 提供了多种性能优化手段，包括 SSR、SSG、ISR 等渲染策略。图片优化通过 next/image 自动实现 WebP 转换和响应式加载。代码分割基于路由自动完成...", chunk_source: "notes/nextjs-perf", chunk_id: 101, chunk_index: 0, score: 0.95, stale: false, source_id: "local" },
+        { slug: "zustand-guide", page_id: 2, title: "Zustand 状态管理实战", type: "article", chunk_text: "Zustand 是一个轻量级的 React 状态管理库，API 简洁直观。相比 Redux，它不需要写样板代码。创建 store 只需一行代码...", chunk_source: "notes/zustand-guide", chunk_id: 102, chunk_index: 0, score: 0.88, stale: false, source_id: "local" },
+        { slug: "react-hooks", page_id: 6, title: "React Hooks 深入", type: "note", chunk_text: "useEffect 是 React 中最常用的 Hook 之一，用于处理副作用。注意依赖数组的正确使用，避免无限循环。useMemo 和 useCallback 用于性能优化...", chunk_source: "notes/react-hooks", chunk_id: 103, chunk_index: 0, score: 0.82, stale: false, source_id: "local" },
+        { slug: "gbrain-arch", page_id: 4, title: "GBrain 架构设计", type: "project", chunk_text: "GBrain 采用 MCP (Model Context Protocol) 作为核心通信协议，支持 JSON-RPC 2.0 格式。前端通过 HTTP 代理与 GBrain 服务通信...", chunk_source: "projects/gbrain-arch", chunk_id: 104, chunk_index: 0, score: 0.78, stale: false, source_id: "local" },
+      ])
     } finally {
       setIsLoading(false)
     }

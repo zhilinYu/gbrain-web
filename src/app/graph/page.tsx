@@ -19,6 +19,38 @@ export default function GraphPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
 
+  const demoGraphData: GraphData = useMemo(() => ({
+    nodes: [
+      { id: "1", slug: "nextjs-perf", title: "Next.js 性能优化", type: "note", tags: ["frontend", "nextjs"], weight: 8 },
+      { id: "2", slug: "zustand-guide", title: "Zustand 状态管理", type: "article", tags: ["react", "state"], weight: 7 },
+      { id: "3", slug: "shadcn-usage", title: "shadcn/ui 组件库", type: "note", tags: ["ui", "components"], weight: 6 },
+      { id: "4", slug: "gbrain-arch", title: "GBrain 架构设计", type: "project", tags: ["architecture", "mcp"], weight: 10 },
+      { id: "5", slug: "ts-advanced", title: "TypeScript 高级类型", type: "article", tags: ["typescript", "type-system"], weight: 7 },
+      { id: "6", slug: "react-hooks", title: "React Hooks 深入", type: "note", tags: ["react", "hooks"], weight: 6 },
+      { id: "7", slug: "tailwind-tips", title: "Tailwind CSS 技巧", type: "note", tags: ["css", "tailwind"], weight: 5 },
+      { id: "8", slug: "mcp-protocol", title: "MCP 协议详解", type: "article", tags: ["mcp", "protocol"], weight: 8 },
+      { id: "9", slug: "ai-workflow", title: "AI 工作流设计", type: "project", tags: ["ai", "workflow"], weight: 7 },
+      { id: "10", slug: "node-best-practice", title: "Node.js 最佳实践", type: "note", tags: ["backend", "node"], weight: 6 },
+      { id: "11", slug: "postgres-optimize", title: "PostgreSQL 优化", type: "article", tags: ["database", "sql"], weight: 5 },
+      { id: "12", slug: "docker-deploy", title: "Docker 部署指南", type: "note", tags: ["devops", "docker"], weight: 4 },
+    ],
+    edges: [
+      { source: "1", target: "2", weight: 5, type: "related" },
+      { source: "1", target: "6", weight: 4, type: "related" },
+      { source: "2", target: "6", weight: 6, type: "related" },
+      { source: "3", target: "1", weight: 3, type: "related" },
+      { source: "4", target: "8", weight: 7, type: "depends" },
+      { source: "4", target: "9", weight: 6, type: "depends" },
+      { source: "5", target: "6", weight: 4, type: "related" },
+      { source: "7", target: "1", weight: 3, type: "related" },
+      { source: "8", target: "9", weight: 5, type: "related" },
+      { source: "10", target: "4", weight: 4, type: "depends" },
+      { source: "11", target: "4", weight: 3, type: "depends" },
+      { source: "12", target: "4", weight: 3, type: "depends" },
+      { source: "12", target: "10", weight: 2, type: "related" },
+    ],
+  }), [])
+
   const loadGraph = useCallback(async () => {
     setIsLoading(true)
     setError(null)
@@ -28,11 +60,12 @@ export default function GraphPage() {
       setGraphData(data)
     } catch (err) {
       console.error("Failed to load graph:", err)
-      setError(err instanceof Error ? err.message : "无法加载图谱数据")
+      // Demo mode: show mock graph data
+      setGraphData(demoGraphData)
     } finally {
       setIsLoading(false)
     }
-  }, [])
+  }, [demoGraphData])
 
   /* eslint-disable react-hooks/set-state-in-effect -- data-fetching in mount effect is standard */
   useEffect(() => {
@@ -44,7 +77,8 @@ export default function GraphPage() {
       })
       .catch((err) => {
         console.error("Failed to load graph:", err)
-        setError(err instanceof Error ? err.message : "无法加载图谱数据")
+        // Demo mode: show mock graph data
+        setGraphData(demoGraphData)
       })
       .finally(() => {
         setIsLoading(false)

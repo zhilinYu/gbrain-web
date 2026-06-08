@@ -6,7 +6,7 @@
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue)
 
-![GBrain Web Screenshot](./public/screenshot.png)
+![Dashboard](./public/screenshot-dashboard.png)
 
 ## 功能
 

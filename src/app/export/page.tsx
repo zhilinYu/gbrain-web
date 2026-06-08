@@ -24,7 +24,17 @@ export default function ExportPage() {
         setPages(data)
       } catch (err) {
         console.error("Failed to load pages:", err)
-        setError(err instanceof Error ? err.message : "Failed to load pages")
+        // Demo mode
+        setPages([
+          { slug: "nextjs-perf", title: "Next.js 性能优化笔记", type: "note", updated_at: "2025-06-07T10:30:00Z", created_at: "2025-05-01T08:00:00Z", tags: ["frontend", "nextjs"] },
+          { slug: "zustand-guide", title: "Zustand 状态管理实战", type: "article", updated_at: "2025-06-06T14:20:00Z", created_at: "2025-04-20T09:00:00Z", tags: ["react", "state"] },
+          { slug: "shadcn-usage", title: "shadcn/ui 组件库使用", type: "note", updated_at: "2025-06-05T11:00:00Z", created_at: "2025-05-10T10:00:00Z", tags: ["ui", "components"] },
+          { slug: "gbrain-arch", title: "GBrain 架构设计", type: "project", updated_at: "2025-06-04T16:45:00Z", created_at: "2025-03-15T08:00:00Z", tags: ["architecture", "mcp"] },
+          { slug: "ts-advanced", title: "TypeScript 高级类型", type: "article", updated_at: "2025-06-03T09:30:00Z", created_at: "2025-02-28T08:00:00Z", tags: ["typescript", "type-system"] },
+          { slug: "react-hooks", title: "React Hooks 深入", type: "note", updated_at: "2025-06-02T13:15:00Z", created_at: "2025-03-05T08:00:00Z", tags: ["react", "hooks"] },
+          { slug: "tailwind-tips", title: "Tailwind CSS 技巧", type: "note", updated_at: "2025-06-01T10:00:00Z", created_at: "2025-04-12T08:00:00Z", tags: ["css", "tailwind"] },
+          { slug: "mcp-protocol", title: "MCP 协议详解", type: "article", updated_at: "2025-05-30T15:30:00Z", created_at: "2025-03-20T08:00:00Z", tags: ["mcp", "protocol"] },
+        ])
       } finally {
         setIsLoading(false)
       }

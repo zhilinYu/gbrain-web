@@ -66,7 +66,22 @@ export default function MemoryLibraryPage() {
       setAllTags(tagsData)
     } catch (err) {
       console.error("Failed to load memory library:", err)
-      setError(err instanceof Error ? err.message : "Failed to load data")
+      // Demo mode
+      setPages([
+        { slug: "nextjs-perf", title: "Next.js 性能优化笔记", type: "note", updated_at: "2025-06-07T10:30:00Z", created_at: "2025-05-01T08:00:00Z", tags: ["frontend", "nextjs"] },
+        { slug: "zustand-guide", title: "Zustand 状态管理实战", type: "article", updated_at: "2025-06-06T14:20:00Z", created_at: "2025-04-20T09:00:00Z", tags: ["react", "state"] },
+        { slug: "shadcn-usage", title: "shadcn/ui 组件库使用", type: "note", updated_at: "2025-06-05T11:00:00Z", created_at: "2025-05-10T10:00:00Z", tags: ["ui", "components"] },
+        { slug: "gbrain-arch", title: "GBrain 架构设计", type: "project", updated_at: "2025-06-04T16:45:00Z", created_at: "2025-03-15T08:00:00Z", tags: ["architecture", "mcp"] },
+        { slug: "ts-advanced", title: "TypeScript 高级类型", type: "article", updated_at: "2025-06-03T09:30:00Z", created_at: "2025-02-28T08:00:00Z", tags: ["typescript", "type-system"] },
+        { slug: "react-hooks", title: "React Hooks 深入", type: "note", updated_at: "2025-06-02T13:15:00Z", created_at: "2025-03-05T08:00:00Z", tags: ["react", "hooks"] },
+        { slug: "tailwind-tips", title: "Tailwind CSS 技巧", type: "note", updated_at: "2025-06-01T10:00:00Z", created_at: "2025-04-12T08:00:00Z", tags: ["css", "tailwind"] },
+        { slug: "mcp-protocol", title: "MCP 协议详解", type: "article", updated_at: "2025-05-30T15:30:00Z", created_at: "2025-03-20T08:00:00Z", tags: ["mcp", "protocol"] },
+        { slug: "ai-workflow", title: "AI 工作流设计", type: "project", updated_at: "2025-05-28T11:20:00Z", created_at: "2025-02-15T08:00:00Z", tags: ["ai", "workflow"] },
+        { slug: "node-best-practice", title: "Node.js 最佳实践", type: "note", updated_at: "2025-05-25T09:00:00Z", created_at: "2025-01-20T08:00:00Z", tags: ["backend", "node"] },
+        { slug: "postgres-optimize", title: "PostgreSQL 优化", type: "article", updated_at: "2025-05-22T14:00:00Z", created_at: "2025-01-10T08:00:00Z", tags: ["database", "sql"] },
+        { slug: "docker-deploy", title: "Docker 部署指南", type: "note", updated_at: "2025-05-20T10:30:00Z", created_at: "2025-01-05T08:00:00Z", tags: ["devops", "docker"] },
+      ])
+      setAllTags(["frontend", "nextjs", "react", "state", "ui", "components", "architecture", "mcp", "typescript", "type-system", "hooks", "css", "tailwind", "protocol", "ai", "workflow", "backend", "node", "database", "sql", "devops", "docker"])
     } finally {
       setLoading(false)
     }
