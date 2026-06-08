@@ -1,112 +1,119 @@
-# GBrain Web - 记忆治理控制台
+# GBrain Web - Memory Governance Console
 
-> GBrain 的 Web 管理界面，基于 MCP JSON-RPC 协议
+> Web UI for GBrain, built on MCP JSON-RPC protocol. Visualize your AI agent's memory as a knowledge graph.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue)
 
+[中文文档](./README_CN.md)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FzhilinYu%2Fgbrain-web&env=GBRAIN_URL,NEXT_PUBLIC_GBRAIN_URL&envDescription=GBrain%20MCP%20server%20URL&envLink=https%3A%2F%2Fgithub.com%2FzhilinYu%2Fgbrain-web%23environment-variables)
+
 ![Dashboard](./public/screenshot-dashboard.png)
+![Memory Library](./public/screenshot-library.png)
+![Knowledge Graph](./public/screenshot-graph.png)
 
-## 功能
+## Features
 
-- **Dashboard** - 统计概览、健康状态、最近更新
-- **Memory Library** - 记忆列表，支持类型/标签过滤、排序
-- **Memory Detail** - 记忆详情，支持 Markdown 渲染、链接查看、时间线
-- **Search** - 关键词搜索和智能语义搜索
-- **Export** - 批量导出记忆为 JSON
-- **Settings** - Token 配置
+- **Dashboard** - Stats overview, health score, recent updates
+- **Memory Library** - Browse memories with type/tag filters and sorting
+- **Knowledge Graph** - Interactive force-directed graph of memory connections
+- **Memory Detail** - Markdown rendering, backlinks, timeline history
+- **Semantic Search** - Keyword and vector similarity search
+- **Export** - Batch export memories as JSON
+- **Settings** - Token configuration
 
-## 快速开始
+## Quick Start
 
-### 1. 启动 GBrain 服务
+### 1. Start GBrain Server
 
 ```bash
-# 启动 GBrain MCP 服务
+# Start GBrain MCP server
 gbrain serve --http --port 8787
 
-# 创建访问 Token
+# Create access token
 gbrain auth create "gbrain-web" --takes-holders world
 ```
 
-### 2. 安装依赖
+### 2. Install & Run
 
 ```bash
 npm install
-```
-
-### 3. 启动开发服务器
-
-```bash
 npm run dev
 ```
 
-### 4. 访问应用
+### 3. Configure Token
 
-打开 http://localhost:3000
+Open http://localhost:3000, go to Settings:
 
-首次使用需要配置 Token（Settings 页面）：
+1. Copy the `gbrain_xxx` token from step 1
+2. Paste into the Token input
+3. Click Save
 
-1. 复制上一步生成的 `gbrain_xxx` Token
-2. 粘贴到 Settings 页面的 Token 输入框
-3. 点击保存
+## Tech Stack
 
-## 技术栈
+| Layer | Tech |
+|-------|------|
+| Framework | Next.js 16 (App Router) |
+| Styling | Tailwind CSS 4 |
+| UI | shadcn/ui |
+| State | Zustand |
+| Protocol | MCP JSON-RPC |
+| Graph | D3.js Force Layout |
 
-- **Next.js 16** - React 框架
-- **Tailwind CSS 4** - 样式
-- **shadcn/ui** - UI 组件
-- **Zustand** - 状态管理
-- **MCP JSON-RPC** - GBrain 接口调用
-
-## 项目结构
+## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── (dashboard)/
-│   │   └── page.tsx         # Dashboard 首页
+│   ├── (dashboard)/page.tsx    # Dashboard
 │   ├── memory/
-│   │   ├── page.tsx         # Memory Library
-│   │   └── [slug]/page.tsx  # Memory Detail
-│   ├── search/page.tsx      # Search 页
-│   ├── export/page.tsx      # Export 页
-│   ├── settings/page.tsx    # Settings 页
-│   ├── api/gbrain/route.ts  # MCP 代理路由
-│   └── layout.tsx           # 根布局
+│   │   ├── page.tsx            # Memory Library
+│   │   └── [slug]/page.tsx     # Memory Detail
+│   ├── graph/page.tsx          # Knowledge Graph
+│   ├── search/page.tsx         # Search
+│   ├── export/page.tsx         # Export
+│   ├── settings/page.tsx       # Settings
+│   └── api/gbrain/route.ts    # MCP Proxy
 ├── components/
-│   ├── layout/              # Sidebar, Header
-│   ├── dashboard/          # StatCards, RecentList, HealthStatus
-│   └── ui/                 # shadcn/ui 组件
+│   ├── layout/                 # Sidebar, Header
+│   ├── dashboard/              # StatCards, RecentList, HealthStatus
+│   ├── graph/                  # GraphViewer
+│   └── ui/                     # shadcn/ui components
 ├── lib/
-│   ├── gbrain.ts           # MCP Client
-│   ├── store.ts            # Zustand Store
-│   └── utils.ts            # 工具函数
+│   ├── gbrain.ts               # MCP Client
+│   └── store.ts                # Zustand Store
 └── types/
-    └── gbrain.ts           # 类型定义
+    └── gbrain.ts               # TypeScript types
 ```
 
-## 环境变量
+## Environment Variables
 
-```env
-NEXT_PUBLIC_GBRAIN_URL=http://localhost:8787
-GBRAIN_URL=http://localhost:8787
-```
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `GBRAIN_URL` | `http://localhost:8787` | GBrain MCP server URL (server-side) |
+| `NEXT_PUBLIC_GBRAIN_URL` | `http://localhost:8787` | GBrain MCP server URL (client-side) |
 
-## MCP 工具
+## MCP Tools Used
 
-项目使用以下 GBrain MCP 工具：
+| Tool | Description |
+|------|-------------|
+| `get_stats` | Get memory statistics |
+| `get_health` | Get brain health score |
+| `list_pages` | List memory pages |
+| `get_page` | Get page detail |
+| `search` | Keyword search |
+| `query` | Semantic search |
+| `get_links` / `get_backlinks` | Get page links |
+| `get_timeline` | Get page timeline |
+| `get_tags` | Get all tags |
+| `build_graph` | Build full knowledge graph |
 
-- `get_stats` - 获取统计信息
-- `get_health` - 获取健康状态
-- `list_pages` - 列表页面
-- `get_page` - 获取页面详情
-- `search` - 关键词搜索
-- `query` - 语义搜索
-- `get_links` / `get_backlinks` - 获取链接
-- `get_timeline` - 获取时间线
-- `get_tags` - 获取标签
+## Contributing
 
-## 许可证
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines. PRs welcome!
 
-MIT
+## License
+
+[MIT](./LICENSE)
